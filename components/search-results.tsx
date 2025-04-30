@@ -40,7 +40,8 @@ export default function SearchResults() {
     setGeneratingAudio(url)
 
     try {
-      const response = await fetch(`/create_podcast?url=${encodeURIComponent(url)}`)
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const response = await fetch(`${backendUrl}/create_podcast?url=${encodeURIComponent(url)}`)
 
       if (!response.ok) {
         throw new Error("Failed to generate audio")

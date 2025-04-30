@@ -42,7 +42,8 @@ export default function SearchBar() {
 
     try {
       if (activeTab === "search") {
-        const endpoint = `http://localhost:8000/query?q=${encodeURIComponent(inputValue)}`
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+        const endpoint = `${backendUrl}/query?q=${encodeURIComponent(inputValue)}`
         const response = await fetch(endpoint)
         if (!response.ok) {
           throw new Error(`Search failed: ${response.statusText}`)
@@ -50,7 +51,8 @@ export default function SearchBar() {
         const data = await response.json()
         setResults(data.papers || data)
       } else {
-        const endpoint = `http://localhost:8000/create_podcast?url=${encodeURIComponent(inputValue)}`
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+        const endpoint = `${backendUrl}/create_podcast?url=${encodeURIComponent(inputValue)}`
         const response = await fetch(endpoint)
         if (!response.ok) {
           throw new Error(`Podcast failed: ${response.statusText}`)
